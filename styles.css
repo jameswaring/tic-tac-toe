@@ -28,4 +28,9 @@ body{
 
 .main-grid div{
     border-style: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10vw;
+    font-family: sans-serif;
 }
