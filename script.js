@@ -2,6 +2,7 @@ document.addEventListener('click', (e) => {
     console.log(e)
     e.target.innerHTML = "X"
     counter = 0
+    //checkWin()
     compTurn(counter)
 })
 
@@ -15,5 +16,7 @@ const compTurn = (counter) => {
         counter++
         compTurn(counter)
     }
-    grid[randomIndex].innerHTML = "O"
+    else{
+        grid[randomIndex].innerHTML = "O"
+    }
 }
