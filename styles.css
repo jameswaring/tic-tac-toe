@@ -45,8 +45,8 @@ body{
     border-style: solid;
 }
 
-#x-choice,
-#o-choice{
+#x,
+#o{
     width: 200px;
     height: 50px;
 }
