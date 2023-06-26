@@ -36,7 +36,6 @@
                     }
                 }
             )
-            console.log(Gameboard.squares)
         }
     }
     function player(symbol) {
