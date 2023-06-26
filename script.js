@@ -13,10 +13,30 @@
                 grid.appendChild(cell)
             }
             gameLogic.playerMove()
-            console.log("yes")
+        },
+        addMove: function(cell, symbol){
+            cell.target.innerText = symbol
+            // now populate the squares array with the entry
+            const cells = document.getElementsByClassName('cell')
+            let a = 0
+            let b = 0
+            Array.from(cells).forEach(
+                e => {
+                    console.log(e)
+                    // array logic to enter value
+                    Gameboard.squares[a][b] = "test"
+                    //iterate inner array element
+                    a++
+                    //iterate outer array element if divisible by 3 (on new row)
+                    if(a % 3 == 0){
+                        a = 0
+                        b++
+                    }
+                }
+            )
+            console.log(Gameboard.squares)
         }
     }
-    
     function player(symbol) {
         return{
             symbol
@@ -24,17 +44,18 @@
     }
 
     const gameLogic = {
+        playing: "",
         chooseSymbol: function(){
             const x = document.getElementById("x")
             const o = document.getElementById("o")
             o.addEventListener("click", e => {
-                const player1 = player(e.target.id)
+                playing = player(e.target.id)
                 x.remove()
                 o.remove()
                 Gameboard.drawBoard()
             })
             x.addEventListener("click", e => {
-                const player2 = player(e.target.id)
+                playing = player(e.target.id)
                 x.remove()
                 o.remove()
                 Gameboard.drawBoard()
@@ -45,7 +66,7 @@
             const cells = document.getElementsByClassName('cell')
             Array.from(cells).forEach(function(cell) {
                 cell.addEventListener('click', (e) => {
-                    Gameboard.addMove(e)
+                    Gameboard.addMove(e, playing.symbol)
                 })
               });
         }
