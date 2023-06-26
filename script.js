@@ -21,10 +21,12 @@
             let a = 0
             let b = 0
             Array.from(cells).forEach(
-                e => {
-                    console.log(e)
-                    // array logic to enter value
-                    Gameboard.squares[a][b] = "test"
+                (e, index) => {
+                    // check whether the cell has a symbol entered
+                    if(cells[index].innerText != ""){
+                        // array logic to enter value
+                        Gameboard.squares[b][a] = symbol
+                    }
                     //iterate inner array element
                     a++
                     //iterate outer array element if divisible by 3 (on new row)
