@@ -35,7 +35,9 @@
                     }
                 }
             )
-            gameLogic.checkWin(Gameboard.squares)
+        },
+        addCompMove: function(cell, symbol, arrayPos){
+            cell.innerText = symbol
         }
     }
     function player(symbol) {
@@ -51,12 +53,14 @@
             const o = document.getElementById("o")
             o.addEventListener("click", e => {
                 playing = player(e.target.id)
+                computer = player("x")
                 x.remove()
                 o.remove()
                 Gameboard.drawBoard()
             })
             x.addEventListener("click", e => {
                 playing = player(e.target.id)
+                computer = player("o")
                 x.remove()
                 o.remove()
                 Gameboard.drawBoard()
@@ -68,14 +72,26 @@
             Array.from(cells).forEach(function(cell) {
                 cell.addEventListener('click', (e) => {
                     Gameboard.addMove(e, playing.symbol)
+                    // check for win
+                    gameLogic.checkWin(Gameboard.squares)
+                    // computer's turn
+                    gameLogic.computerMove(computer.symbol)
                 })
               });
+        },
+        computerMove: function(symbol){
+            const cells = document.getElementsByClassName('cell')
+            let randomCell = Math.floor(Math.random() * 8);
+/*          Gameboard.squares[2][2] = symbol
+            console.log(Gameboard.squares)
+            console.log(cells[random]) */
+            Gameboard.addCompMove(cells[randomCell], symbol, randomCell)
         },
         checkWin: function(squares) {
             // Check rows
             for (let i = 0; i < 3; i++) {
               if (squares[i][0] && squares[i][0] === squares[i][1] && squares[i][0] === squares[i][2]) {
-                gameLogic.win(squares[i][0]); // Return the winning symbol (x or o)
+                return squares[i][0]; // Return the winning symbol (x or o)
               }
             }
           
@@ -88,21 +104,26 @@
           
             // Check diagonals
             if (
-              squares[0][0] && squares[0][0] === squares[1][1] && squares[0][0] === squares[2][2] ||
+              squares[0][0] && squares[0][0] === squares[1][1] && squares[0][0] === squares[2][2]
+            ) {
+              gameLogic.win(squares[0][0]); // Return the winning symbol (x or o)
+            }
+            
+            if (
               squares[0][2] && squares[0][2] === squares[1][1] && squares[0][2] === squares[2][0]
             ) {
-              gameLogic.win(squares[1][1]); // Return the winning symbol (x or o)
+              gameLogic.win(squares[0][2]); // Return the winning symbol (x or o)
             }
           
             return null; // Return null if no winning move is found
           },
-          win: function(winner){
+          
+        win: function(winner){
             const current = document.getElementById("grid")
             current.classList.remove("main-grid")
             current.classList.add("win-grid")
             current.innerText = "Winner is " + winner.toUpperCase()
-          }
-          
+        }
     }
     gameLogic.chooseSymbol()
 })()
