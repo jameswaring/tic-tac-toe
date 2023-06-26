@@ -1,6 +1,6 @@
 (function(){
     const Gameboard = {
-        squares: [[],[],[]],
+        squares: [["a","a","a"],["a","a","a"],["a","a","a"]],
         drawBoard: function(){
             const current = document.getElementById("grid")
             current.classList.remove("start-grid")
@@ -22,7 +22,7 @@
             Array.from(cells).forEach(
                 (e, index) => {
                     // check whether the cell has a symbol entered
-                    if(cells[index].innerText != ""){
+                    if((cells[index].innerText != "") && (cells[index].innerText != computer.symbol)){
                         // array logic to enter value
                         Gameboard.squares[b][a] = symbol
                     }
@@ -38,6 +38,16 @@
         },
         addCompMove: function(cell, symbol, arrayPos){
             cell.innerText = symbol
+            // enter computer's choice in to squares array
+            let count = 0
+            for(let i = 0; i < 3; i++){
+                for(let j = 0; j < 3; j++){
+                  if (count == arrayPos){
+                    Gameboard.squares[i][j] = symbol
+                  }
+                  count ++
+                }
+              }
         }
     }
     function player(symbol) {
@@ -81,16 +91,25 @@
         },
         computerMove: function(symbol){
             const cells = document.getElementsByClassName('cell')
-            let randomCell = Math.floor(Math.random() * 8);
-/*          Gameboard.squares[2][2] = symbol
-            console.log(Gameboard.squares)
-            console.log(cells[random]) */
+            // find available spaces
+            let count = 0
+            let avail = []
+            for(let i = 0; i < 3; i++){
+                for(let j = 0; j < 3; j++){
+                  if (Gameboard.squares[i][j] == "a"){
+                    avail.push(count)
+                  }
+                  count ++
+                }
+              }
+            console.log(avail)
+            let randomCell = avail[Math.floor(Math.random() * avail.length)];
             Gameboard.addCompMove(cells[randomCell], symbol, randomCell)
         },
         checkWin: function(squares) {
             // Check rows
             for (let i = 0; i < 3; i++) {
-              if (squares[i][0] && squares[i][0] === squares[i][1] && squares[i][0] === squares[i][2]) {
+              if ((squares[i][0] === squares[i][1]) && (squares[i][1] === squares[i][2]) && (squares[i][1] === squares[i][1])) {
                 return squares[i][0]; // Return the winning symbol (x or o)
               }
             }
