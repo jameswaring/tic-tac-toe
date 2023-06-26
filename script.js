@@ -6,7 +6,6 @@
             current.classList.remove("start-grid")
             current.classList.add("main-grid")
             const grid = document.querySelector('.main-grid')
-            console.log(grid)
             for(let i = 0; i<9; i++){
                 const cell = document.createElement('div')
                 cell.classList.add('cell')
@@ -98,7 +97,10 @@
             return null; // Return null if no winning move is found
           },
           win: function(winner){
-            console.log(winner)
+            const current = document.getElementById("grid")
+            current.classList.remove("main-grid")
+            current.classList.add("win-grid")
+            current.innerText = "Winner is " + winner.toUpperCase()
           }
           
     }
