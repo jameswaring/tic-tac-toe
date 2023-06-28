@@ -14,27 +14,34 @@
             gameLogic.playerMove()
         },
         addMove: function(cell, symbol){
-            cell.target.innerText = symbol
-            // now populate the squares array with the entry
-            const cells = document.getElementsByClassName('cell')
-            let a = 0
-            let b = 0
-            Array.from(cells).forEach(
-                (e, index) => {
-                    // check whether the cell has a symbol entered
-                    if((cells[index].innerText != "") && (cells[index].innerText != computer.symbol)){
-                        // array logic to enter value
-                        Gameboard.squares[b][a] = symbol
+            //check whether cell is empty
+            if(cell.target.innerText !== ""){
+                console.log("cell already full")
+                gameLogic.playFail()
+            }
+            else{
+                cell.target.innerText = symbol
+                // now populate the squares array with the entry
+                const cells = document.getElementsByClassName('cell')
+                let a = 0
+                let b = 0
+                Array.from(cells).forEach(
+                    (e, index) => {
+                        // check whether the cell has a symbol entered
+                        if((cells[index].innerText != "") && (cells[index].innerText != computer.symbol)){
+                            // array logic to enter value
+                            Gameboard.squares[b][a] = symbol
+                        }
+                        //iterate inner array element
+                        a++
+                        //iterate outer array element if divisible by 3 (on new row)
+                        if(a % 3 == 0){
+                            a = 0
+                            b++
+                        }
                     }
-                    //iterate inner array element
-                    a++
-                    //iterate outer array element if divisible by 3 (on new row)
-                    if(a % 3 == 0){
-                        a = 0
-                        b++
-                    }
-                }
-            )
+                )
+            }
         },
         addCompMove: function(cell, symbol, arrayPos){
             cell.innerText = symbol
@@ -145,6 +152,9 @@
             current.classList.remove("main-grid")
             current.classList.add("win-grid")
             current.innerText = "Winner is " + winner.toUpperCase()
+        },
+        playFail: function(){
+            console.log("Cell already taken")
         }
     }
     gameLogic.chooseSymbol()
