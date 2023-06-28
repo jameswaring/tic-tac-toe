@@ -41,6 +41,8 @@
                         }
                     }
                 )
+                // computer's turn
+                gameLogic.computerMove(computer.symbol)
             }
         },
         addCompMove: function(cell, symbol, arrayPos){
@@ -91,8 +93,6 @@
                     Gameboard.addMove(e, playing.symbol)
                     // check for win
                     gameLogic.checkWin(Gameboard.squares)
-                    // computer's turn
-                    gameLogic.computerMove(computer.symbol)
                 })
               });
         },
@@ -118,7 +118,6 @@
               //check if the first square is selected by either player for rows
               if(squares[i][0] !== "a"){
                 if((squares[i][0] === squares[i][1]) && (squares[i][1] === squares[i][2])){
-                    console.log("row error")
                     gameLogic.win(squares[i][0]);
                 }
               }
