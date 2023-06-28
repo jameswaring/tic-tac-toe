@@ -102,39 +102,42 @@
                   count ++
                 }
               }
-            console.log(avail)
             let randomCell = avail[Math.floor(Math.random() * avail.length)];
             Gameboard.addCompMove(cells[randomCell], symbol, randomCell)
         },
         checkWin: function(squares) {
             // Check rows
             for (let i = 0; i < 3; i++) {
-              if ((squares[i][0] === squares[i][1]) && (squares[i][1] === squares[i][2]) && (squares[i][1] === squares[i][1])) {
-                return squares[i][0]; // Return the winning symbol (x or o)
+              //check if the first square is selected by either player for rows
+              if(squares[i][0] !== "a"){
+                if((squares[i][0] === squares[i][1]) && (squares[i][1] === squares[i][2])){
+                    console.log("row error")
+                    gameLogic.win(squares[i][0]);
+                }
               }
             }
-          
             // Check columns
             for (let j = 0; j < 3; j++) {
-              if (squares[0][j] && squares[0][j] === squares[1][j] && squares[0][j] === squares[2][j]) {
-                gameLogic.win(squares[0][j]); // Return the winning symbol (x or o)
+              if(squares[0][j] !== "a"){
+                if ((squares[0][j] === squares[1][j]) && (squares[0][j] === squares[2][j])) {
+                    gameLogic.win(squares[0][j]); // Return the winning symbol (x or o)
+                  }
               }
             }
           
-            // Check diagonals
-            if (
-              squares[0][0] && squares[0][0] === squares[1][1] && squares[0][0] === squares[2][2]
-            ) {
-              gameLogic.win(squares[0][0]); // Return the winning symbol (x or o)
+            // Check diagonals one way
+            if (squares[0][0] !== "a"){
+                if ((squares[0][0] === squares[1][1]) && (squares[0][0] === squares[2][2])) {
+                    gameLogic.win(squares[0][0]); // Return the winning symbol (x or o)
+                  }
             }
             
-            if (
-              squares[0][2] && squares[0][2] === squares[1][1] && squares[0][2] === squares[2][0]
-            ) {
-              gameLogic.win(squares[0][2]); // Return the winning symbol (x or o)
+            // check diagonal other way
+            if (squares[0][2] !== "a"){
+                if (squares[0][2] === squares[1][1] && squares[0][2] === squares[2][0]) {
+                    gameLogic.win(squares[0][2]); // Return the winning symbol (x or o)
+                  }
             }
-          
-            return null; // Return null if no winning move is found
           },
           
         win: function(winner){
