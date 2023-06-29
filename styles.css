@@ -16,7 +16,7 @@ body{
     display: flex;
     margin: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 2rem;
+    font-size: 4rem;
 }
 
 .main-grid{
@@ -59,12 +59,6 @@ body{
     border-style: solid;
     font-size: 3rem;
     font-family: sans-serif;
-}
-
-.play-again{
-    border-style: ridge;
-    border-width: 0.3rem;
-    padding: 12px;
 }
 
 button {

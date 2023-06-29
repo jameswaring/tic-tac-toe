@@ -148,13 +148,13 @@
           
         win: function(winner){
             const current = document.getElementById("grid")
+            current.innerHTML = ""
             current.classList.remove("main-grid")
             current.classList.add("win-grid")
             const winDiv = document.createElement("div");
             winDiv.innerText = "Winner is " + winner.toUpperCase()
             current.appendChild(winDiv)
-            const replayDiv = document.createElement("div");
-            replayDiv.classList.add("play-again")
+            const replayDiv = document.createElement("button");
             replayDiv.innerText = "Play Again?"
             current.appendChild(replayDiv)
             replayDiv.addEventListener("click", e => {
