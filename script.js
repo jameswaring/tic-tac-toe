@@ -150,7 +150,16 @@
             const current = document.getElementById("grid")
             current.classList.remove("main-grid")
             current.classList.add("win-grid")
-            current.innerText = "Winner is " + winner.toUpperCase()
+            const winDiv = document.createElement("div");
+            winDiv.innerText = "Winner is " + winner.toUpperCase()
+            current.appendChild(winDiv)
+            const replayDiv = document.createElement("div");
+            replayDiv.classList.add("play-again")
+            replayDiv.innerText = "Play Again?"
+            current.appendChild(replayDiv)
+            replayDiv.addEventListener("click", e => {
+                location.reload()
+            })
         },
         playFail: function(){
             console.log("Cell already taken")
